@@ -106,7 +106,7 @@ class WarehouseTableImporter:
                 (log.data_source == self.table.data_source)
                 & (log.table_name == self.table.table_name)
                 & (log.status == "In Progress")
-                & (IfNull(log.ended_at, "") == "")
+                & (log.ended_at.isnull()) 
             ),
         )
 
