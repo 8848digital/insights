@@ -189,15 +189,14 @@ class InsightsDataSourcev3(InsightsDataSourceDocument, Document):
         print(f"Connected to {self.name} ({self.title})")
 
         if self.database_type == "MariaDB":
-            db.raw_sql("SET SESSION time_zone='+00:00'")
-            db.raw_sql("SET collation_connection = 'utf8mb4_unicode_ci'")
+            db.raw_sql("SET SESSION TIME ZONE 'UTC'")
             MAX_STATEMENT_TIMEOUT = (
                 frappe.db.get_single_value(
                     "Insights Settings", "max_execution_time", cache=True
                 )
                 or 180
             )
-            db.raw_sql(f"SET MAX_STATEMENT_TIME={MAX_STATEMENT_TIMEOUT}")
+            db.raw_sql(f"SET statement_timeout = '{MAX_STATEMENT_TIMEOUT}s'")
 
         frappe.local.insights_db_connections[self.name] = db
         return db
