@@ -42,7 +42,7 @@ def is_frappe_db(data_source):
         db.con.close()
         return len(res) > 0
     except Exception:
-        return False
+        return 0
 
 
 def get_frappedb_table_links(data_source):

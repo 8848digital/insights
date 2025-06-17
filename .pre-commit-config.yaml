@@ -3,6 +3,18 @@ default_stages: [commit]
 fail_fast: false
 
 repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.0.1
+    hooks:
+      - id: trailing-whitespace
+        files: "hrms.*"
+        exclude: ".*json$|.*txt$|.*csv|.*md"
+      - id: check-yaml
+      - id: no-commit-to-branch
+        args: ['--branch', 'develop','--branch', 'version-15','--branch', 'pre-prod','--branch', 'pre-prod-develop']
+      - id: check-merge-conflict
+      - id: check-ast
+
   - repo: https://github.com/psf/black
     rev: 22.6.0
     hooks:
